@@ -20,7 +20,7 @@
 </style>
 
 <div id='barchart'>
-    <svg width='1000px' height='1000px'></svg>
+    <svg width='1000px' height='500px'></svg>
 </div>
 
 <script>
@@ -28,10 +28,10 @@
         top: 20,
         bottom: 90,
         left: 110,
-        right: 90
+        right: 300
     };
-    var width = 900 - margin.left - margin.right;
-    var height = 550 - margin.top - margin.bottom;
+    var width = 950 - margin.left - margin.right;
+    var height = 350 - margin.top - margin.bottom;
 
     var svg = d3.select('svg')
         .append('svg')
@@ -115,7 +115,7 @@
                 .text('Doses');
 
             //Tooltip
-            var div = d3.select('body').append('div')
+            var tooltip2 = d3.select('body').append('div')
                 .attr('class', 'tooltip2')
                 .style('opacity', 0);
 
@@ -181,10 +181,10 @@
                         .transition()
                         .duration(200)
                         .attr('fill', 'rgb(0, 204, 102)')
-                    div.transition()
+                    tooltip2.transition()
                         .duration(200)
                         .style('opacity', .9);
-                    div.html('Children' + '<br/>' + 'Doses: ' + d.children)
+                    tooltip2.html('Children' + '<br/>' + 'Doses: ' + d.children)
                         .style('left', (d3.event.pageX) + 'px')
                         .style('top', (d3.event.pageY - 28) + 'px');
                 })
@@ -193,13 +193,13 @@
                         .transition()
                         .duration(200)
                         .attr('fill', 'rgb(0, 255, 128)')
-                    div.transition()
+                    tooltip2.transition()
                         .duration(500)
                         .style('opacity', 0);
                 });
 
             // Legend
-            var gender = ['Adults', 'Children'];
+            var gender = ['Adults (>=18 years old)', 'Children (12-17 years old)'];
 
             var legend = svg.append('g')
                 .attr('font-family', 'sans-serif')
@@ -213,18 +213,17 @@
                 });
 
             legend.append('rect')
-                .attr('x', width - 19)
+                .attr('x', width + 230)
                 .attr('width', 19)
                 .attr('height', 19)
                 .attr('fill', colorScale);
 
             legend.append('text')
-                .attr('x', width - 24)
+                .attr('x', width + 220)
                 .attr('y', 9.5)
                 .attr('dy', '0.32em')
-                .text(function(d) {
-                    return d;
-                });
+                .text(d => d)
+
         }
     })
 </script>
