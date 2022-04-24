@@ -122,6 +122,8 @@
                     }
                 }
 
+
+
                 //Bind data to the SVG and create one path per GeoJSON feature
                 var map = g.selectAll('path')
                     .data(json.features)
@@ -157,7 +159,8 @@
                         tooltip1
                             .style('top', (d3.event.pageY) + 'px')
                             .style('left', (d3.event.pageX + 10) + 'px')
-                        tooltip1.html(d.properties.province.bold() + (' <br>Number of doses injected: ').bold() + d.properties.doses.bold());
+                        var formatComma = d3.format(',')
+                        tooltip1.html(d.properties.province + (' <br>Number of doses injected: ') + formatComma(d.properties.doses));
                     })
                     .on('mouseout', function(d) {
                         d3.select(this)
