@@ -169,14 +169,14 @@ d3.csv("https://raw.githubusercontent.com/huynhtrucquyen/DSDV_COVID19Vaccination
             });
 
         // Legend
-        var gender = ["Adults", "Children"];
+        var age = ["Adults", "Children"];
 
         var legend = svg.append("g")
             .attr("font-family", "sans-serif")
             .attr("font-size", 15)
             .attr("text-anchor", "end")
             .selectAll("g")
-            .data(gender)
+            .data(age)
             .enter().append("g")
             .attr("transform", function(d, i) {
                 return "translate(0," + i * 20 + ")";
