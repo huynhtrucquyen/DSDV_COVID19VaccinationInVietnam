@@ -199,14 +199,14 @@
                 });
 
             // Legend
-            var gender = ['Adults (>=18 years old)', 'Children (12-17 years old)'];
+            var age = ['Adults (>=18 years old)', 'Children (12-17 years old)'];
 
             var legend = svg.append('g')
                 .attr('font-family', 'sans-serif')
                 .attr('font-size', 15)
                 .attr('text-anchor', 'end')
                 .selectAll('g')
-                .data(gender)
+                .data(age)
                 .enter().append('g')
                 .attr('transform', function(d, i) {
                     return 'translate(0,' + i * 20 + ')';
