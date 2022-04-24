@@ -11,7 +11,7 @@ d3.csv("https://raw.githubusercontent.com/huynhtrucquyen/DSDV_COVID19Vaccination
     } else {
         console.log(data);
 
-        //Total of "Adults" and "Children" in a day
+        //Total of "Adults" and "Children" 
         var totalInDay = [];
         for (var i = 0; i < data.length; i++) {
             var sum = data[i].adults + data[i].children;
