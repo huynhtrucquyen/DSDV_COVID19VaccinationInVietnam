@@ -1,17 +1,33 @@
 var rowConverter = function(d) {
     return {
-        dose: d["doses"],
-        adults: parseInt(d["adults"]),
-        children: parseInt(d["children"])
+        dose: d['doses'],
+        adults: parseInt(d['adults']),
+        children: parseInt(d['children'])
     }
 }
-d3.csv("https://raw.githubusercontent.com/huynhtrucquyen/DSDV_COVID19VaccinationInVietnam/main/BarChart_vaccine.csv", rowConverter, function(error, data) {
+
+//Dimession and Margin
+var margin = { top: 30, bottom: 90, left: 110, right: 270 },
+    width = 970 - margin.left - margin.right,
+    height = 420 - margin.top - margin.bottom;
+
+var svg = d3.select('#barchart')
+    .append('svg')
+    .attr('width', width + margin.left + margin.right)
+    .attr('height', height + margin.top + margin.bottom)
+    .style('border', '3px solid rgb(83, 198, 140)')
+    .style('border-radius', '15px')
+    .append('g')
+    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+
+d3.csv('https://raw.githubusercontent.com/huynhtrucquyen/DSDV_COVID19VaccinationInVietnam/main/BarChart_vaccine.csv', rowConverter, function(error, data) {
     if (error) {
         console.log(error);
     } else {
         console.log(data);
 
-        //Total of "Adults" and "Children" 
+        //Total of 'Adults' and 'Children' in a day
         var totalInDay = [];
         for (var i = 0; i < data.length; i++) {
             var sum = data[i].adults + data[i].children;
@@ -19,17 +35,12 @@ d3.csv("https://raw.githubusercontent.com/huynhtrucquyen/DSDV_COVID19Vaccination
         }
         console.log(totalInDay);
 
-        //Keys of "doses"
+        //Keys of 'doses'
         var keys = [];
         for (var i = 0; i < data.length; i++) {
             keys.push(data[i].dose);
         }
         console.log(keys);
-
-        //Dimession and Margin
-        var margin = { top: 10, bottom: 40, left: 100, right: 10 };
-        var width = 700 - margin.left - margin.right;
-        var height = 450 - margin.top - margin.bottom;
 
         var xScale = d3.scaleLinear()
             .range([0, width])
@@ -42,158 +53,162 @@ d3.csv("https://raw.githubusercontent.com/huynhtrucquyen/DSDV_COVID19Vaccination
             .domain(keys);
 
         var colorScale = d3.scaleOrdinal()
-            .range(["#ff6699", "#008ae6"]);
-
-        var svg = d3.select("#barchart")
-            .append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .style("border", "1px solid DodgerBlue")
-            .style("border-radius", "15px")
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            .range(['rgb(83, 198, 140)', 'rgb(0, 255, 128)']);
 
         //X-Axis
-        svg.append("g")
-            .attr("class", "axis")
-            .attr("transform", "translate(0," + height + ")")
+        svg.append('g')
+            .attr('class', 'axis')
+            .attr('transform', 'translate(0,' + height + ')')
             .call(d3.axisBottom(xScale))
-            .selectAll("text")
-            .attr("y", 12)
-            .attr("x", -6)
-            .attr("dy", ".35em")
-            .style("text-anchor", "start");
-
-        svg.append("text")
-            .attr("transform", "translate(" + (width / 2) + " ," + (height + margin.top + 25) + ")")
-            .style("text-anchor", "middle")
-            .attr("font-family", "sans-serif")
-            .attr("font-size", 12)
-            .text("Number of doses");
+            .selectAll('text')
+            .attr('y', 12)
+            .attr('x', -6)
+            .attr('dy', '.35em')
+            .style('text-anchor', 'start');
+        svg.append('text')
+            .attr('transform', 'translate(' + (width / 2) + ' ,' + (height + margin.top + 25) + ')')
+            .style('text-anchor', 'middle')
+            .attr('font-family', 'sans-serif')
+            .attr('font-size', 12)
+            .text('Number of doses');
 
         //Y-Axis
-        svg.append("g")
-            .attr("class", "axis")
+        svg.append('g')
+            .attr('class', 'axis')
             .call(d3.axisLeft(yScale))
-            .selectAll("text")
-            .attr("transform", "rotate()");
-
-        svg.append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 0 - margin.left)
-            .attr("x", 0 - (height / 2))
-            .attr("dy", "1em")
-            .style("text-anchor", "middle")
-            .attr("font-family", "sans-serif")
-            .attr("font-size", 12)
-            .text("Doses");
+            .selectAll('text')
+            .attr('transform', 'rotate()');
+        svg.append('text')
+            .attr('transform', 'rotate(-90)')
+            .attr('y', 0 - margin.left)
+            .attr('x', 0 - (height / 2))
+            .attr('dy', '2em')
+            .style('text-anchor', 'middle')
+            .attr('font-family', 'sans-serif')
+            .attr('font-size', 12)
+            .text('Doses');
 
         //Tooltip
-        var div = d3.select("#barchart").append("div")
-            .attr("class", "tooltip4")
-            .style("opacity", 0);
+        var tooltip2 = d3.select('body').append('div')
+            .attr('class', 'tooltip2')
+            .style('opacity', 0);
 
-        //Bars of "adults"
-        svg.selectAll("rectadults")
+        //Bars of 'adults'
+        svg.selectAll('rectadults')
             .data(data)
-            .enter().append("rect")
-            .attr("y", function(d) {
+            .enter().append('rect')
+            .attr('y', function(d) {
                 return yScale(d.dose);
             })
-            .attr("width", function(d) {
+            .attr('width', function(d) {
                 return xScale(d.adults);
             })
-            .attr("height", function(d) {
+            .attr('height', function(d) {
                 return yScale.bandwidth();
             })
-            .attr("fill", "#008ae6")
-            .on("mouseover", function(d) {
+            .attr('fill', 'rgb(83, 198, 140)')
+            .attr('stroke-width', 3)
+            .style('stroke', 'rgb(0, 102, 0)')
+            .on('mouseover', function(d) {
                 d3.select(this)
                     .transition()
                     .duration(200)
-                    .attr("fill", "#0000ff")
-                div.transition()
+                    .attr('fill', 'rgb(51, 153, 102)')
+                tooltip2.transition()
                     .duration(200)
-                    .style("opacity", .9);
-                div.html("Adults" + "<br/>" + d.dose + " doses" + "<br/>" + d.adults + " person(s)")
-                    .style("left", (d3.event.pageX - 770) + "px")
-                    .style("top", (d3.event.pageY - 660) + "px");
+                    .style('opacity', .9)
             })
-            .on("mouseout", function() {
+            .on('mousemove', function(d) {
+                tooltip2
+                    .style('top', (d3.event.pageY) + 'px')
+                    .style('left', (d3.event.pageX + 15) + 'px')
+                var formatComma = d3.format(',')
+                tooltip2.html('Adults' + '<br/>' + 'Doses: ' + formatComma(d.adults))
+                    .style('border-radius', '8px');
+            })
+            .on('mouseout', function(d) {
                 d3.select(this)
                     .transition()
                     .duration(200)
-                    .attr("fill", "#008ae6")
-                div.transition()
+                    .attr('fill', 'rgb(83, 198, 140)')
+                tooltip2
+                    .transition()
                     .duration(500)
-                    .style("opacity", 0);
+                    .style('opacity', 0);
             });
 
-        //Bars of "children"
-        svg.selectAll("rectchildren")
+        //Bars of 'children'
+        svg.selectAll('rectchildren')
             .data(data)
-            .enter().append("rect")
-            .attr("x", function(d) {
+            .enter().append('rect')
+            .attr('x', function(d) {
                 return xScale(d.adults);
             })
-            .attr("y", function(d) {
+            .attr('y', function(d) {
                 return yScale(d.dose);
             })
-            .attr("width", function(d) {
+            .attr('width', function(d) {
                 return xScale(d.children);
             })
-            .attr("height", function() {
+            .attr('height', function() {
                 return yScale.bandwidth();
             })
-            .attr("fill", "#ff6699")
-            .on("mouseover", function(d) {
+            .attr('fill', 'rgb(0, 255, 128)')
+            .attr('stroke-width', 3)
+            .style('stroke', 'rgb(0, 102, 0)')
+            .on('mouseover', function(d) {
                 d3.select(this)
                     .transition()
                     .duration(200)
-                    .attr("fill", "#e6007a")
-                div.transition()
+                    .attr('fill', 'rgb(0, 204, 102)')
+                tooltip2.transition()
                     .duration(200)
-                    .style("opacity", .9);
-                div.html("Children" + "<br/>" + d.dose + " doses" + "<br/>" + d.children + " person(s)")
-                    .style("left", (d3.event.pageX - 770) + "px")
-                    .style("top", (d3.event.pageY - 660) + "px");
+                    .style('opacity', .9);
             })
-            .on("mouseout", function(d) {
+            .on('mousemove', function(d) {
+                tooltip2
+                    .style('top', (d3.event.pageY) + 'px')
+                    .style('left', (d3.event.pageX + 15) + 'px')
+                var formatComma = d3.format(',')
+                tooltip2.html('Children' + '<br/>' + 'Doses: ' + formatComma(d.children))
+                    .style('border-radius', '8px');
+            })
+            .on('mouseout', function(d) {
                 d3.select(this)
                     .transition()
                     .duration(200)
-                    .attr("fill", "#ff6699")
-                div.transition()
+                    .attr('fill', 'rgb(0, 255, 128)')
+                tooltip2.transition()
                     .duration(500)
-                    .style("opacity", 0);
+                    .style('opacity', 0);
             });
 
         // Legend
-        var age = ["Adults", "Children"];
+        var age = ['Adults (>=18 years old)', 'Children (12-17 years old)'];
 
-        var legend = svg.append("g")
-            .attr("font-family", "sans-serif")
-            .attr("font-size", 15)
-            .attr("text-anchor", "end")
-            .selectAll("g")
+        var legend = svg.append('g')
+            .attr('font-family', 'sans-serif')
+            .attr('font-size', 15)
+            .attr('text-anchor', 'end')
+            .selectAll('g')
             .data(age)
-            .enter().append("g")
-            .attr("transform", function(d, i) {
-                return "translate(0," + i * 20 + ")";
+            .enter().append('g')
+            .attr('transform', function(d, i) {
+                return 'translate(0,' + i * 20 + ')';
             });
 
-        legend.append("rect")
-            .attr("x", width - 19)
-            .attr("width", 19)
-            .attr("height", 19)
-            .attr("fill", colorScale);
+        legend.append('rect')
+            .attr('x', width + 230)
+            .attr('width', 19)
+            .attr('height', 19)
+            .attr('fill', colorScale);
 
-        legend.append("text")
-            .attr("x", width - 24)
-            .attr("y", 9.5)
-            .attr("dy", "0.32em")
-            .text(function(d) {
-                return d;
-            });
+        legend.append('text')
+            .attr('x', width + 220)
+            .attr('y', 9.5)
+            .attr('dy', '0.32em')
+            .text(d => d)
+
     }
+
 })
