@@ -3,7 +3,6 @@
 
 <head>
     <meta charset='utf-8' />
-    <title>Pie chart</title>
     <link href='//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css' rel='stylesheet' data-semver='3.0.1' data-require='normalize@*' />
     <script type='text/javascript' src='js/donutchart.js'></script>
     <style>
@@ -76,7 +75,6 @@
 
         var colorScale = d3.scaleOrdinal(['rgb(51, 153, 102)', 'rgb(102, 153, 153)', 'rgb(0, 102, 102)', 'rgb(0, 204, 153)', 'rgb(0, 153, 153)', 'rgb(0, 204, 102)']);
 
-
         var arc = d3.arc()
             .innerRadius(innerRadius)
             .outerRadius(outerRadius);
@@ -91,20 +89,6 @@
                 return d.count;
             })
             .sort(null);
-
-        // Define tooltip3
-        var tooltip3 = d3.select('#donutchart')
-            .append('div')
-            .attr('class', 'tooltip3');
-
-        tooltip3.append('div')
-            .attr('class', 'label');
-
-        tooltip3.append('div')
-            .attr('class', 'count');
-
-        tooltip3.append('div')
-            .attr('class', 'percent');
 
         // Draw the pie chart
         var path = svg.selectAll('g.slice')
@@ -121,12 +105,22 @@
             .attr('stroke', 'white')
             .style('stroke-width', '1.8px');
 
-
         var total = d3.sum(data.map(function(d) {
             return d.count;
         }));
         var formatComma = d3.format(',')
-            // tooltip3 and arc transition
+
+        // Tooltip
+        var tooltip3 = d3.select('#donutchart')
+            .append('div')
+            .attr('class', 'tooltip3');
+        tooltip3.append('div')
+            .attr('class', 'label');
+        tooltip3.append('div')
+            .attr('class', 'count');
+        tooltip3.append('div')
+            .attr('class', 'percent');
+        // Tooltip and arc transition
         path.on('mouseover', function(d) {
             d3.select(this).select('path').transition()
                 .duration(650)
@@ -137,37 +131,16 @@
             tooltip3.select('.percent').html(percent + '%');
             tooltip3.style('display', 'block');
         });
-
         path.on('mouseout', function() {
             d3.select(this).select('path').transition()
                 .duration(650)
                 .attr('d', arc);
             tooltip3.style('display', 'none');
         });
-
         path.on('mousemove', function(d) {
             tooltip3.style('top', (d3.event.pageY + 10) + 'px')
                 .style('left', (d3.event.pageX + 10) + 'px');
         });
-
-        // Add a label to the larger arcs, translated to the arc centroid and rotated
-        path.filter(function(d) {
-                return d.endAngle - d.startAngle > .2;
-            })
-            .append('svg:text')
-            .attr('dy', '.35em')
-            .attr('text-anchor', 'middle')
-            .attr('transform', function(d) {
-                return 'translate(' + arc.centroid(d) + ')rotate(' + angle(d) + ')';
-            })
-
-
-        // Computes the label angle of an arc, converting from radians to degrees
-        function angle(d) {
-            var a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90;
-            return a > 90 ? a - 180 : a;
-        }
-
 
         var legend = svg.selectAll('.legend')
             .data(colorScale.domain())
