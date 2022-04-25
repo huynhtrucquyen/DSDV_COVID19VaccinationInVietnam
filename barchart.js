@@ -27,13 +27,13 @@ d3.csv('https://raw.githubusercontent.com/huynhtrucquyen/DSDV_COVID19Vaccination
     } else {
         console.log(data);
 
-        //Total of 'Adults' and 'Children' in a day
-        var totalInDay = [];
+        //Total of 'Adults' and 'Children' 
+        var total = [];
         for (var i = 0; i < data.length; i++) {
             var sum = data[i].adults + data[i].children;
-            totalInDay.push(sum);
+            total.push(sum);
         }
-        console.log(totalInDay);
+        console.log(total);
 
         //Keys of 'doses'
         var keys = [];
@@ -44,7 +44,7 @@ d3.csv('https://raw.githubusercontent.com/huynhtrucquyen/DSDV_COVID19Vaccination
 
         var xScale = d3.scaleLinear()
             .range([0, width])
-            .domain([0, d3.max(totalInDay)]);
+            .domain([0, d3.max(total)]);
 
         var yScale = d3.scaleBand()
             .range([height, 0])
@@ -93,7 +93,7 @@ d3.csv('https://raw.githubusercontent.com/huynhtrucquyen/DSDV_COVID19Vaccination
             .attr('class', 'tooltip2')
             .style('opacity', 0);
 
-        //Bars of 'adults'
+        //Bars of 'Adults'
         svg.selectAll('rectadults')
             .data(data)
             .enter().append('rect')
@@ -137,7 +137,7 @@ d3.csv('https://raw.githubusercontent.com/huynhtrucquyen/DSDV_COVID19Vaccination
                     .style('opacity', 0);
             });
 
-        //Bars of 'children'
+        //Bars of 'Children'
         svg.selectAll('rectchildren')
             .data(data)
             .enter().append('rect')
