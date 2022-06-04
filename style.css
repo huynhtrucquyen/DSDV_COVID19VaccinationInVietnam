@@ -1,8 +1,8 @@
-#geomap {
+#linechart {
     position: absolute;
     top: 500px;
-    left: 100px;
-    height: 550px;
+    left: 40px;
+    height: 2000px;
     width: 500px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
@@ -10,12 +10,113 @@
     border-radius: 5px;
 }
 
+#geomap {
+    position: absolute;
+    top: 1400px;
+    left: 40px;
+    height: 2000px;
+    width: 500px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+#table {
+    position: absolute;
+    top: 1400px;
+    left: 670px;
+    vertical-align: middle;
+    background-color: #ffffff;
+}
+
+tbody {
+    position: absolute;
+    height: 600px;
+    display: block;
+    overflow-y: scroll;
+    border: solid 3px rgb(83, 198, 140);
+    border-radius: 15px;
+}
+
+th {
+    padding: 5px;
+    border: solid 2px #CCC;
+    height: 30px;
+    font-weight: bold;
+    background-color: rgb(198, 247, 183);
+    border: solid 3px rgb(83, 198, 140);
+    border-radius: 10px;
+}
+
+td.data {
+    padding: 5px;
+}
+
+td {
+    border: solid 2px #CCC;
+    padding-left: 40px;
+}
+
+div {
+    height: 17px;
+}
+
+div.container {
+    float: none;
+    width: 50%;
+}
+
+div.bar1 {
+    background-color: rgb(147, 227, 171);
+}
+
+div.bar2 {
+    background-color: rgb(147, 227, 171);
+}
+
+div.bar3 {
+    background-color: rgb(147, 227, 171);
+}
+
+tr.even {
+    background-color: rgb(248, 255, 247);
+}
+
+tbody tr:hover {
+    background-color: rgb(206, 247, 211);
+}
+
+#selectButton {
+    position: absolute;
+    top: 200px;
+    left: 100px;
+}
+
+#button1 {
+    position: absolute;
+    top: 300px;
+    left: 100px;
+}
+
+#button2 {
+    position: absolute;
+    top: 300px;
+    left: 250px;
+}
+
+#button3 {
+    position: absolute;
+    top: 300px;
+    left: 350px;
+}
+
 #barchart {
     position: absolute;
-    top: 1050px;
-    left: 1000px;
-    height: 400px;
-    width: 700px;
+    top: 2300px;
+    left: 20px;
+    height: 700px;
+    width: 3000px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
     -moz-border-radius: 5px;
@@ -24,7 +125,7 @@
 
 #donutchart {
     position: absolute;
-    top: 1560px;
+    top: 3000px;
     left: 100px;
     height: 360px;
     width: 510px;
@@ -32,6 +133,50 @@
     border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+}
+
+#donut2 {
+    position: absolute;
+    top: 3000px;
+    left: 1000px;
+    height: 360px;
+    width: 510px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+div.tooltip1 {
+    position: absolute;
+    text-align: center;
+    width: auto;
+    height: auto;
+    padding: 6px;
+    font: 15px sans-serif;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    background: rgb(196, 237, 194);
+    border: 5px;
+    border-radius: 8px;
+    pointer-events: none;
+    opacity: 0.9;
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: left;
+    width: auto;
+    height: auto;
+    padding: 6px;
+    font: 15px sans-serif;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    background: rgb(196, 237, 194);
+    border: 5px;
+    border-radius: 8px;
+    pointer-events: none;
+    opacity: 0.9;
 }
 
 div.tooltip1 {
@@ -89,6 +234,6 @@ div.tooltip3 {
 #page {
     padding-top: 100px;
     padding-left: 200px;
-    height: 2000px;
-    width: 1500px;
+    height: 5000px;
+    width: 5500px;
 }

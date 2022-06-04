@@ -1,13 +1,13 @@
 //Width and height of map
-var width = 770;
-var height = 770;
+var width = 600,
+    height = 750;
 
 //Define map projection
 var projection = d3.geoAlbers()
-    .center([100, 4.9])
-    .rotate([-9, 50])
+    .center([100, 5])
+    .rotate([-10, 50])
     .parallels([20, 30])
-    .scale([2500])
+    .scale([2000])
     .translate([width / 30, height / 1.3]);
 
 //Define path generator
@@ -27,123 +27,275 @@ var zoom = d3.zoom()
     ])
     .on('zoom', zoomed);
 
-//Create SVG element
 var svg = d3.select('#geomap')
     .append('svg')
     .attr('width', width)
     .attr('height', height)
     .style('border', '3px solid rgb(83, 198, 140)')
     .style('border-radius', '15px')
-    .call(zoom)
-var g = svg.append('g');
+    .call(zoom);
+svg.append("text");
+/// Update function
+function vis(ageRange) {
+    d3.selectAll('table').remove();
+    var ageRangeName = '';
+    var ratio1 = '';
+    var ratio2 = '';
+    var ratio3 = '';
+    var title = '';
 
-// Define the tooltip
-var tooltip1 = d3.select('body').append('div')
-    .attr('class', 'tooltip1')
+    if (ageRange == "population_18andover") {
+        ageRangeName = ' <br>Population of age 18 and over: ';
+        ratio1 = "the_ratio_of_dose1_population_18andover";
+        ratio2 = 'the_ratio_of_dose2_population_18andover';
+        ratio3 = 'the_ratio_of_dose3_population_18andover';
+        title = 'POPULATION OF AGE 18 AND OVER';
+    } else if (ageRange == "population_12to17") {
+        ageRangeName = ' <br>Population of age 12 to 17: ';
+        ratio1 = 'the_ratio_of_dose1_population_12to17';
+        ratio2 = 'the_ratio_of_dose2_population_12to17';
+        ratio3 = 'the_ratio_of_dose3_population_12to17';
+        title = 'POPULATION OF AGE 12 TO 17';
 
-//Load in data
-d3.csv('https://raw.githubusercontent.com/huynhtrucquyen/DSDV_COVID19VaccinationInVietnam/main/Geomap_vaccine.csv', function(data) {
+    } else if (ageRange == "population_5to11") {
+        ageRangeName = ' <br>Population of age 5 to 11: ';
+        ratio1 = 'the_ratio_of_dose1_population_5to11';
+        ratio2 = 'the_ratio_of_dose2_population_5to11';
+        ratio3 = 'the_ratio_of_dose3_population_5to11';
+        title = 'POPULATION OF 5 TO 11';
+    }
 
 
-    //Load GeoJSON data and merge with provinces data
-    d3.json('https://raw.githubusercontent.com/TungTh/tungth.github.io/master/data/vn-provinces.json', function(json) {
+    var g = svg.append('g');
 
-        //Loop through each province data doses in the .csv file
-        for (var i = 0; i < data.length; i++) {
+    var formatComma = d3.format(',')
 
-            //Grab data province 
-            var dataProvince = parseFloat(data[i].ma);
-            console.log(json.features[0].properties.Ma);
+    var chartWidth = '100px',
+        percent = d3.format('.2%');
 
-            //Grab data doses
-            var province = data[i].doses;
+    //Define color scale
+    var colorScale = d3.scaleLinear()
+        // .range(['rgb(190, 255, 179)','rgb(0,255,0)','rgb(127,255,0)', 'rgb(65, 195, 65)', 'rgb(11, 144, 4)', 'rgb(14, 90, 7)']);
+        .range(["rgb(42, 111, 42)", "rgb(49, 129, 49)"]);
+    // Define the tooltip
+    var tooltip1 = d3.select('body').append('div')
+        .attr('class', 'tooltip1')
+        .style('opacity', 0);
 
-            //Find the corresponding province inside the GeoJSON
-            for (var j = 0; j < json.features.length; j++) {
+    var table = d3.select('#table').append('table'),
+        thead = table.append('thead').append('tr'),
+        tbody = table.append('tbody');
 
-                var jsonProvince = json.features[j].properties.Ma;
+    //Load in data
+    d3.csv('https://raw.githubusercontent.com/lightsintheblue/Book/new/geomapNEWW.csv', function(data) {
 
-                if (dataProvince == jsonProvince) {
+        colorScale.domain([
+            d3.min(data, function(d) {
+                return d[ageRange];
+            }),
+            d3.max(data, function(d) {
+                return d[ageRange];
+            })
+        ]);
+        //Load GeoJSON data and merge with provinces data
+        d3.json('https://raw.githubusercontent.com/TungTh/tungth.github.io/master/data/vn-provinces.json', function(json) {
 
-                    //Copy the data doses into the JSON
-                    json.features[j].properties.doses = province;
+            //Loop through each province data population_18andover in the .csv file
+            for (var i = 0; i < data.length; i++) {
 
-                    //Stop looking through the JSON
-                    break;
+                //Grab data province 
+                var dataProvince = parseFloat(data[i].ma);
+                console.log(json.features[0].properties.Ma);
+
+                //Grab data population_18andover
+                var province = data[i][ageRange];
+
+                //Find the corresponding province inside the GeoJSON
+                for (var j = 0; j < json.features.length; j++) {
+
+                    var jsonProvince = json.features[j].properties.Ma;
+
+                    if (dataProvince == jsonProvince) {
+
+                        //Copy the data population_18andover into the JSON
+                        json.features[j][ageRange] = province;
+                        //Stop looking through the JSON
+                        break;
+                    }
+                }
+
+                //Loop to get province name
+                //Grab province name
+                var dataName = data[i].province;
+
+                //Find the corresponding province inside the GeoJSON
+                for (var k = 0; k < json.features.length; k++) {
+
+                    var jsonProvince = json.features[k].properties.Ma;
+
+                    if (dataProvince == jsonProvince) {
+
+                        //Copy the data population_18andover into the JSON
+                        json.features[k].properties.province = dataName;
+
+                        //Stop looking through the JSON
+                        break;
+                    }
                 }
             }
+            // console.log(json.features[1].properties);
+            // console.log("-------------------------------------");
+            // svg.text(title);
+            //Bind data to the SVG and create one path per GeoJSON feature
+            svg.select("text")
+                .attr("x", 300)
+                .attr("y", 35)
+                .attr("text-anchor", "middle")
+                .style("font-size", "25px")
+                .style("text-decoration", "bold").text(title);
+            var map = g.selectAll('path')
+                .data(json.features)
+                .enter()
+                .append('path')
+                // .transition().duration(700)
+                .attr('d', path)
+                .style('fill', function(d) {
+                    var value = d[ageRange];
+                    return colorScale(value);
 
-            //Loop to get province name
-            //Grab province name
-            var dataName = data[i].province;
+                })
+                .on('mouseover', function(d) {
+                    d3.select(this)
+                        .transition()
+                        .duration(200)
+                        .style('opacity', 1)
+                        .style('stroke', '#404040')
+                    tooltip1.transition()
+                        .duration(200)
+                        .style('opacity', 0.9)
+                        .style('stroke', 'black')
+                    tooltip1.html(d.province);
+                })
+                .on('mousemove', function(d) {
+                    tooltip1
+                        .style('top', (d3.event.pageY) + 'px')
+                        .style('left', (d3.event.pageX + 15) + 'px')
+                    tooltip1.html(d.properties.Ten + (ageRangeName) + formatComma(d[ageRange]))
+                        .style('border-radius', '8px');
+                })
+                .on('mouseout', function(d) {
+                    d3.select(this)
+                        .transition()
+                        .duration(200)
+                        .style('stroke', 'transparent')
+                    tooltip1
+                        .transition()
+                        .duration(200)
+                        .style('opacity', 0);
+                });
 
-            //Find the corresponding province inside the GeoJSON
-            for (var k = 0; k < json.features.length; k++) {
+            //----- TABLE -----//
 
-                var jsonProvince = json.features[k].properties.Ma;
+            // Create a table1 with rows and bind a data row to each table1 row
+            var trows = tbody.selectAll('td')
+                .data(data)
+                .enter()
+                .append('tr')
+                .attr('class', 'datarow')
 
-                if (dataProvince == jsonProvince) {
+            // Province column
+            thead.append('th').text('Province');
+            trows.append('td').attr('class', 'data name')
+                .text(function(d) {
+                    return d.province
+                });
 
-                    //Copy the data doses into the JSON
-                    json.features[k].properties.province = dataName;
+            // Population 18 and over column
+            thead.append('th').text('Population');
+            trows.append('td').attr('class', 'data name')
+                .text(function(d) {
+                    return formatComma(d[ageRange])
+                });
 
-                    //Stop looking through the JSON
-                    break;
-                }
-            }
-        }
 
-        //Bind data to the SVG and create one path per GeoJSON feature
-        var map = g.selectAll('path')
-            .data(json.features)
-            .enter()
-            .append('path')
-            .attr('d', path)
-            .style('fill', function(d) {
-                value = d.properties.doses;
-                if (value > 10000000) {
-                    return 'rgb(14, 90, 7)';
-                } else if (value > 3000000) {
-                    return 'rgb(11, 144, 4)';
-                } else if (value > 1000000) {
-                    return 'rgb(65, 195, 65)';
-                } else {
-                    return 'rgb(190, 255, 179)';
-                }
-            })
-            .on('mouseover', function(d) {
-                d3.select(this)
-                    .transition()
-                    .duration(200)
-                    .style('opacity', 1)
-                    .style('stroke', '#404040')
-                tooltip1.transition()
-                    .duration(200)
-                    .style('opacity', 0.9)
-                    .style('stroke', 'black')
-                tooltip1.html(d.province);
-            })
-            .on('mousemove', function(d) {
-                tooltip1
-                    .style('top', (d3.event.pageY) + 'px')
-                    .style('left', (d3.event.pageX + 15) + 'px')
-                var formatComma = d3.format(',')
-                tooltip1.html(d.properties.province + (' <br>Number of doses injected: ') + formatComma(d.properties.doses))
-                    .style('border-radius', '8px');
-            })
-            .on('mouseout', function(d) {
-                d3.select(this)
-                    .transition()
-                    .duration(200)
-                    .style('stroke', 'transparent')
-                tooltip1
-                    .transition()
-                    .duration(200)
-                    .style('opacity', 0);
-            });
+            // Set the even columns
+            d3.selectAll('.datarow').filter(':nth-child(even)').attr('class', 'datarow even')
+
+            //Dose 1
+            thead.append('th').text('The ratio of dose 1');
+            // Create a column at the beginning of the table1 for the chart
+            var chart1 = trows.append('td').attr('class', 'chart1').attr('width', chartWidth);
+            // Create the div structure of the chart
+            chart1.append('div').attr('class', 'container').append('div').attr('class', 'bar1');
+            // Setup the scale for the values for display, use abs max as max value
+            var x = d3.scale.linear()
+                .domain([0, d3.max(data, function(d) {
+                    return Math.abs(d[ratio1]);
+                })])
+                .range(['0%', '100%']);
+            // Creates the bar
+            trows.select('div.bar1')
+                .style('width', '0%')
+                .transition().duration(500)
+                .style('width', function(d) {
+                    return d[ratio1] > 0 ? x(d[ratio1]) : '0%';
+                })
+                .text(function(d) {
+                    return percent(d[ratio1])
+                });
+
+            // Dose 2
+            thead.append('th').text('The ratio of dose 2');
+            // Create a column at the beginning of the table1 for the chart
+            var chart2 = trows.append('td')
+                .attr('class', 'chart2')
+                .attr('width', chartWidth);
+            // Create the div structure of the chart
+            chart2.append('div').attr('class', 'container').append('div').attr('class', 'bar2');
+            // Setup the scale for the values for display, use abs max as max value
+            var x = d3.scale.linear()
+                .domain([0, d3.max(data, function(d) {
+                    return Math.abs(d[ratio2]);
+                })])
+                .range(['0%', '100%']);
+            // Creates the bar
+            trows.select('div.bar2')
+                .style('width', '0%')
+                .transition().duration(500)
+                .style('width', function(d) {
+                    return d[ratio2] > 0 ? x(d[ratio2]) : '0%';
+                })
+                .text(function(d) {
+                    return percent(d[ratio2])
+                });
+
+            // Dose 3
+            thead.append('th').text('The ratio of dose 3 ');
+            // Create a column at the beginning of the table1 for the chart
+            var chart3 = trows.append('td').attr('class', 'chart3').attr('width', chartWidth);
+            // Create the div structure of the chart
+            chart3.append('div').attr('class', 'container').append('div').attr('class', 'bar3');
+            // Setup the scale for the values for display, use abs max as max value
+            var x = d3.scale.linear()
+                .domain([0, d3.max(data, function(d) {
+                    return Math.abs(d[ratio3]);
+                })])
+                .range(['0%', '100%']);
+            // Creates the bar
+            trows.select('div.bar3')
+                .style('width', '0%')
+                .transition().duration(500)
+                .style('width', function(d) {
+                    return d[ratio3] > 0 ? x(d[ratio3]) : '0%';
+                })
+                .text(function(d) {
+                    return percent(d[ratio3])
+                });
+        });
     });
-});
+    // svg.remove();
 
+}
 
 function zoomed() {
     g

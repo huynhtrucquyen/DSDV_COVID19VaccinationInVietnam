@@ -7,6 +7,8 @@
 
     <script type='text/javascript' src='https://d3js.org/d3.v4.min.js'></script>
     <script type='text/javascript' src='https://d3js.org/d3.v4.js'></script>
+    <script src="./web_modules/d3/dist/d3.js"></script>
+    <script src="./web_modules//d3//dist//d3.js"></script>
 
     <script data-require="d3@*" data-semver="4.0.0" src="https://d3js.org/d3.v4.min.js"></script>
     <link rel='stylesheet' type='text/css' href='style.css' />
@@ -22,44 +24,42 @@
 
 
 <body>
-    <select id='selectButton'> </select>
     <p style='text-align: center; margin:30px;'><img src='vaccine1.png' style='width : 600px; height : 200px;'></p>
 
     <div id='page'></div>
+
+    <div id='linechart'></div>
 
     <button id='button1' onclick="vis('population_18andover')">Data 1</button>
     <button id='button2' onclick="vis('population_12to17')">Data 2</button>
     <button id='button3' onclick="vis('population_5to11')">Data 3</button>
 
+    <select id='selectButton'> </select>
     <div id='geomap'></div>
     <div id='table'></div>
+
     <div id='donutchart'></div>
 
-    <div id='barchart'></div>
+    <div id='barchart'>s</div>
 
     <div id='donut2'></div>
 
 
 
-    <!-- <!-- <button onclick="update(data1)">Data 1</button> -->
-
-
-
-
-    <script type='text/javascript' src='donutchart.js'></script>
-
+    <script type='text/javascript' src='linechart.js'></script>
     <script src='./geomap.js'></script>
     <script type='text/javascript' src='barchart.js'></script>
+    <script type='text/javascript' src='donutchart.js'></script>
+    <!-- <script type='module' src='donut2.js'></script> -->
 
+
+    <!-- <script type='text/javascript' src='./geomap.js'></script> -->
     <script>
-        // init();
         vis("population_18andover");
         QuyenNgoc();
         mainDonut();
-        // console.log(QQQQ);
+        visLine();
     </script>
-    <!-- <script type='text/javascript' src='geomap12to17.js'></script>
-    <script type='text/javascript' src='geomap5to11.js'></script> -->
 
 
 
@@ -70,5 +70,9 @@
 
 
 </body>
+
+</html>
+
+</html>
 
 </html>
