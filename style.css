@@ -75,29 +75,26 @@
     font-weight: bold;
     font-size: 17px;
     padding: 13px;
-    top: 1600px;
+    top: 1550px;
     left: 400px;
 }
 
 #button1 {
-    top: 1600px;
     left: 400px;
 }
 
 #button2 {
-    top: 1600px;
     left: 770px;
 }
 
 #button3 {
-    top: 1600px;
     left: 1100px;
 }
 
 #geomap {
     position: absolute;
-    top: 1700px;
-    left: 120px;
+    top: 1650px;
+    left: 100px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
     -moz-border-radius: 5px;
@@ -106,19 +103,19 @@
 
 #table {
     position: absolute;
-    top: 1700px;
-    left: 850px;
+    top: 1650px;
+    left: 890px;
     vertical-align: middle;
 }
 
 tbody {
     position: absolute;
     width: 710px;
-    height: 712px;
+    height: 707px;
     display: block;
     overflow-y: scroll;
     border: solid 3px rgb(83, 198, 140);
-    border-radius: 15px;
+    border-radius: 10px;
 }
 
 th {
@@ -130,12 +127,12 @@ th {
     font-size: larger;
     background-color: rgb(198, 247, 183);
     border: solid 3px rgb(83, 198, 140);
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 td.data {
     padding: 10px;
-    width: 125px;
+    width: 130px;
 }
 
 td.chart1,
@@ -184,13 +181,13 @@ tbody tr:hover {
     background-color: rgb(213, 245, 252);
     font-size: large;
     font-weight: bold;
-    top: 2700px;
+    top: 2570px;
     left: 1450px;
 }
 
 #barchart {
     position: absolute;
-    top: 2700px;
+    top: 2570px;
     left: 50px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
@@ -200,7 +197,7 @@ tbody tr:hover {
 
 #donutchart {
     position: absolute;
-    top: 3500px;
+    top: 3300px;
     left: 55px;
     height: 360px;
     width: 510px;
@@ -212,7 +209,7 @@ tbody tr:hover {
 
 #donut2 {
     position: absolute;
-    top: 3500px;
+    top: 3300px;
     left: 840px;
     height: 360px;
     width: 510px;
@@ -291,6 +288,6 @@ div.tooltip3 {
 }
 
 #page {
-    height: 4000px;
+    height: 3700px;
     width: 100px;
 }
