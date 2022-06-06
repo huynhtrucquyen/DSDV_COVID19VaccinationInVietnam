@@ -26,7 +26,7 @@ function visBar() {
             dose3: parseInt(d['dose3'])
         }
     }
-    d3.csv('https://raw.githubusercontent.com/lightsintheblue/Book/new/datanew.csv', rowConverter, function(error, data) {
+    d3.csv('https://raw.githubusercontent.com/huynhtrucquyen/DSDV_COVID19VaccinationInVietnam/main/barchart_data.csv', rowConverter, function(error, data) {
         if (error) {
             console.log(error);
         } else {
@@ -386,7 +386,6 @@ function visBar() {
                     // run the updateChart function with this selected option
 
                 update(selectedOption)
-
 
 
             })
