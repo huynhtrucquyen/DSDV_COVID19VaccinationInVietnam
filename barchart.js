@@ -8,7 +8,7 @@ function visBar() {
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
         .style('border', '3px solid rgb(83, 198, 140)')
-        .style('border-radius', '15px')
+        .style('border-radius', '10px')
         .append('g')
         .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
     svg2.append("text").text('Number of doses by age groups')
@@ -348,7 +348,7 @@ function visBar() {
 
             var size = 20
 
-            var legend = svg2.selectAll('mydots')
+            var legend = svg2.selectAll('myRect')
                 .data(dose)
                 .enter()
                 .append('rect')
@@ -372,11 +372,9 @@ function visBar() {
                     return i * (size + 6) + (size / 2)
                 })
                 .style('fill', colorScale)
-
-            .text(d => d)
+                .text(d => d)
                 .attr('text-anchor', 'left')
                 .style('alignment-baseline', 'middle');
-
 
 
             // When the button is changed, run the updateChart function
@@ -386,7 +384,6 @@ function visBar() {
                     // run the updateChart function with this selected option
 
                 update(selectedOption)
-
 
             })
         }
