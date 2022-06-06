@@ -15,7 +15,7 @@
                 .attr("width", width + 70 + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
                 .style('border', '3px solid rgb(83, 198, 140)')
-                .style('border-radius', '15px')
+                .style('border-radius', '10px')
                 .append("g")
                 .attr("transform",
                     "translate(" + margin.left + "," + margin.top + ")");
@@ -37,7 +37,7 @@
             var formatComma = d3.format(',')
 
             //Read the data
-            d3.csv('https://raw.githubusercontent.com/huynhtrucquyen/DSDV_COVID19VaccinationInVietnam/main/linechart_data.csv', rowConverter, function(error, data) {
+            d3.csv("https://raw.githubusercontent.com/huynhtrucquyen/DSDV_COVID19VaccinationInVietnam/main/linechart_data.csv", rowConverter, function(error, data) {
                 if (error) {
                     console.log(error);
                 } else {
