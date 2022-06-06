@@ -241,7 +241,7 @@ div.tooltip1 {
     width: auto;
     height: auto;
     padding: 6px;
-    font: 15px sans-serif;
+    font: 17px sans-serif;
     color: rgb(0, 0, 0);
     font-weight: bold;
     background: rgb(196, 237, 194);
@@ -257,7 +257,7 @@ div.tooltip2 {
     width: auto;
     height: auto;
     padding: 6px;
-    font: 15px sans-serif;
+    font: 17px sans-serif;
     color: rgb(0, 0, 0);
     font-weight: bold;
     background: rgb(167, 224, 174);
@@ -272,8 +272,8 @@ div.tooltip3 {
     text-align: center;
     width: auto;
     height: auto;
-    padding: 6px;
-    font: 15px sans-serif;
+    padding: 7px;
+    font: 18px sans-serif;
     color: rgb(0, 0, 0);
     font-weight: bold;
     background: rgb(167, 224, 174);
