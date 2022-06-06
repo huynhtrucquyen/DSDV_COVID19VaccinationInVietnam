@@ -94,7 +94,7 @@ function vis(ageRange) {
         tbody = table.append('tbody');
 
     //Load in data
-    d3.csv('https://raw.githubusercontent.com/lightsintheblue/Book/new/geomapNEWW.csv', function(data) {
+    d3.csv('https://raw.githubusercontent.com/huynhtrucquyen/DSDV_COVID19VaccinationInVietnam/main/geomap_data.csv', function(data) {
 
         // colorScale.domain([
         //     d3.min(data, function(d) {
