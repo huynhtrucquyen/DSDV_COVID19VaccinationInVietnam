@@ -233,7 +233,7 @@ function donut2(rowValue) {
         }
     }
 
-    d3.csv('https://raw.githubusercontent.com/lightsintheblue/Book/new/pieNEWW.csv', rowConverter, function(error, _data) {
+    d3.csv('https://raw.githubusercontent.com/huynhtrucquyen/DSDV_COVID19VaccinationInVietnam/main/donut_data.csv', rowConverter, function(error, _data) {
 
         var data2;
 
