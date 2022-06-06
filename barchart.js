@@ -70,7 +70,6 @@ function visBar() {
                 .domain([0, d3.max(total)])
                 .range([0, width]);
 
-
             // Y Scale
             var yScale = d3.scaleBand()
                 .range([height, 0])
@@ -100,7 +99,6 @@ function visBar() {
                 .style("font-weight", "bold")
                 .text('Number of people');
 
-
             //Y-Axis
             var yAxis = svg2.append('g')
                 .attr('class', 'yaxis')
@@ -119,7 +117,6 @@ function visBar() {
                 .style("font-weight", "bold")
                 .attr('font-size', '20px')
                 .text('Age');
-
 
             //Tooltip
             var tooltip2 = d3.select('body').append('div')
@@ -209,6 +206,7 @@ function visBar() {
                         .style('opacity', 0);
                 });
 
+
             //Bars of 'dose3'
             var bar3 = svg2.selectAll('rectdose3')
                 .data(data.filter(function(d) {
@@ -252,16 +250,13 @@ function visBar() {
                 });
 
 
-
             // A function that update the chart
             function update(selectedGroup) {
-
 
                 // Create new data with the selection?
                 var dataFilter = data.filter(function(d) {
                     return d.province == selectedGroup
                 })
-
 
                 var total = [];
                 for (var i = 0; i < dataFilter.length; i++) {
@@ -269,7 +264,6 @@ function visBar() {
                     total.push(sum);
                 }
                 console.log(total);
-
 
                 xScale
                     .domain([0, d3.max(total)])
@@ -287,9 +281,7 @@ function visBar() {
                     .attr('transform', 'translate(0,' + height + ')');
 
 
-
                 //Bars of 'dose1'
-
                 bar1
                     .data(dataFilter)
                     .transition().duration(900)
@@ -322,7 +314,6 @@ function visBar() {
                     })
 
 
-
                 //Bars of 'dose3'
                 bar3
                     .data(dataFilter)
@@ -339,7 +330,6 @@ function visBar() {
                     .attr('height', function() {
                         return yScale.bandwidth();
                     })
-
             }
 
             // Legend
@@ -375,7 +365,6 @@ function visBar() {
                 .attr('text-anchor', 'left')
                 .style('alignment-baseline', 'middle');
 
-
             // When the button is changed, run the updateChart function
             d3.select('#selectButton').on('change', function(d) {
                 // recover the option that has been chosen
@@ -383,8 +372,6 @@ function visBar() {
                     // run the updateChart function with this selected option
 
                 update(selectedOption)
-
-
             })
         }
     })
