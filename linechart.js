@@ -37,7 +37,7 @@
             var formatComma = d3.format(',')
 
             //Read the data
-            d3.csv("linechart.csv", rowConverter, function(error, data) {
+            d3.csv('https://raw.githubusercontent.com/huynhtrucquyen/DSDV_COVID19VaccinationInVietnam/main/linechart_data.csv', rowConverter, function(error, data) {
                 if (error) {
                     console.log(error);
                 } else {
