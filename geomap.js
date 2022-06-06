@@ -1,13 +1,13 @@
 //Width and height of map
-var width = 620,
-    height = 790;
+var width = 700,
+    height = 770;
 
 //Define map projection
 var projection = d3.geoAlbers()
-    .center([100, 3])
-    .rotate([-8, 50])
+    .center([101, 5])
+    .rotate([-9, 50])
     .parallels([25, 30])
-    .scale([2022])
+    .scale([2300])
     .translate([width / 30, height / 1.3]);
 
 //Define path generator
@@ -33,8 +33,9 @@ var svg = d3.select('#geomap')
     .attr('width', width)
     .attr('height', height)
     .style('border', '3px solid rgb(83, 198, 140)')
-    .style('border-radius', '15px')
+    .style('border-radius', '10px')
     .call(zoom);
+
 svg.append("text");
 svg.append('color');
 
@@ -80,9 +81,9 @@ function vis(ageRange) {
     var colorScale = d3.scaleThreshold()
         // .range(['rgb(190, 255, 179)','rgb(0,255,0)','rgb(127,255,0)', 'rgb(65, 195, 65)', 'rgb(11, 144, 4)', 'rgb(14, 90, 7)']);
         .domain([100000, 500000, 1000000, 2000000])
-        .range(["rgb(204, 255, 235)", 'rgb(121, 210, 166)', 'rgb(0, 179, 89)', 'rgb(45, 134, 45)']);
-
-
+        .range(["rgb(198, 235, 198)", 'rgb(121, 210, 121)', 'rgb(0, 153, 77)', 'rgb(31, 96, 31)'])
+    var colorScale2 = d3.scaleOrdinal()
+        .range(["rgb(198, 235, 198)", 'rgb(121, 210, 121)', 'rgb(0, 153, 77)', 'rgb(31, 96, 31)'])
 
     // Define the tooltip
     var tooltip1 = d3.select('body').append('div')
@@ -155,12 +156,11 @@ function vis(ageRange) {
             // svg.text(title);
 
             svg.select("text")
-                .attr("x", 300)
-                .attr("y", 40)
+                .attr("x", 340)
+                .attr("y", 45)
                 .attr("text-anchor", "middle")
                 .style("font-size", "25px")
                 .style("font-weight", "bold").text(title);
-
 
             //Bind data to the SVG and create one path per GeoJSON feature
             var map = g.selectAll('path')
@@ -303,11 +303,38 @@ function vis(ageRange) {
                     return percent(d[ratio3])
                 });
 
+            var value = [10000, 100000, 500000, 2000000];
+            var value2 = ['< 100.000', '< 500.000', '< 1.000.000', '≥ 2.000.000'];
 
+            var size = 20
+
+            var legend = svg.selectAll('myRect')
+                .data(value)
+                .enter()
+                .append('rect')
+                .attr('x', width + 160)
+                .attr('y', function(d, i) {
+                    return i * (size + 5) + 94
+                }) // 100 is where the first dot appears. 25 is the distance between dots
+                .attr('width', size)
+                .attr('height', size)
+                .style('fill', colorScale);
+
+            // Add one dot in the legend for each name.
+            var legend = svg.selectAll('mylabels')
+                .data(value2)
+                .enter()
+                .append('text')
+                .attr('font-size', '20px')
+                .style("font-weight", "bold")
+                .attr('x', width + 190)
+                .attr('y', function(d, i) {
+                    return i * (size + 6) + (size / 2) + 100
+                })
+                .style('fill', colorScale2)
+                .text(d => d)
         });
     });
-    // svg.remove();
-
 }
 
 function zoomed() {
