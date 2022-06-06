@@ -1,6 +1,6 @@
 function visBar() {
     var margin = { top: 150, bottom: 130, left: 170, right: 270 },
-        width = 1350 - margin.left - margin.right,
+        width = 1370 - margin.left - margin.right,
         height = 570 - margin.top - margin.bottom;
 
     var svg2 = d3.select('#barchart')
@@ -121,7 +121,6 @@ function visBar() {
                 .text('Age');
 
 
-
             //Tooltip
             var tooltip2 = d3.select('body').append('div')
                 .attr('class', 'tooltip2')
@@ -154,7 +153,7 @@ function visBar() {
                         .transition().duration(200)
                         .style('opacity', .9);
                     var formatComma = d3.format(',')
-                    tooltip2.html('dose1' + '<br/>' + 'age: ' + formatComma(d.dose1))
+                    tooltip2.html('Dose 1' + '<br/>' + 'Numer of people: ' + formatComma(d.dose1))
                         .style('left', (d3.event.pageX) + 'px')
                         .style('top', (d3.event.pageY - 14) + 'px');
                 })
@@ -197,7 +196,7 @@ function visBar() {
                         .transition().duration(200)
                         .style('opacity', .9);
                     var formatComma = d3.format(',')
-                    tooltip2.html('dose2' + '<br/>' + 'age: ' + formatComma(d.dose2))
+                    tooltip2.html('Dose 2' + '<br/>' + 'Numer of people: ' + formatComma(d.dose2))
                         .style('left', (d3.event.pageX) + 'px')
                         .style('top', (d3.event.pageY - 28) + 'px');
                 })
@@ -239,7 +238,7 @@ function visBar() {
                         .transition().duration(200)
                         .style('opacity', .9);
                     var formatComma = d3.format(',')
-                    tooltip2.html('dose3' + '<br/>' + 'age: ' + formatComma(d.dose3))
+                    tooltip2.html('Dose 3' + '<br/>' + 'Numer of people: ' + formatComma(d.dose3))
                         .style('left', (d3.event.pageX) + 'px')
                         .style('top', (d3.event.pageY - 14) + 'px');
                 })
@@ -384,6 +383,7 @@ function visBar() {
                     // run the updateChart function with this selected option
 
                 update(selectedOption)
+
 
             })
         }
