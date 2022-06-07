@@ -233,7 +233,7 @@ function donut2(rowValue) {
         }
     }
 
-    d3.csv('https://raw.githubusercontent.com/huynhtrucquyen/DSDV_COVID19VaccinationInVietnam/main/donut_data.csv', rowConverter, function(error, _data) {
+    d3.csv('donut_data.csv', rowConverter, function(error, _data) {
 
         var data2;
 
@@ -294,7 +294,7 @@ function donut2(rowValue) {
                 .duration(650)
                 .attr('d', arcFinal);
             var percent = Math.round(1000 * d.data.count / total) / 10;
-            tooltip3.select('.label').html(d.data.label);
+            tooltip3.select('.label').html(d.data.label)
             tooltip3.select('.count').html(formatComma(d.data.count));
             tooltip3.select('.percent').html(percent + '%');
             tooltip3.style('display', 'block');
