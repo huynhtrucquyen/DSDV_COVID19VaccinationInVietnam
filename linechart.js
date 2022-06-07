@@ -37,7 +37,7 @@
             var formatComma = d3.format(',')
 
             //Read the data
-            d3.csv("https://raw.githubusercontent.com/huynhtrucquyen/DSDV_COVID19VaccinationInVietnam/main/linechart_data.csv", rowConverter, function(error, data) {
+            d3.csv("linechart_data.csv", rowConverter, function(error, data) {
                 if (error) {
                     console.log(error);
                 } else {
@@ -185,7 +185,6 @@
                             return 'Fully vaccinated people'
                         })
                         .attr("text-anchor", "left")
-                        .style("alignment-baseline", "middle")
                         .style('font-weight', 'bold')
                         .style('font-size', '20px')
                         .on("mouseover", highlight)
@@ -309,7 +308,6 @@
                                 var name = "";
                                 if (d.type == 'people_vaccinated') name = 'Vaccinated people';
                                 else name = 'People fully vaccinated'
-
                                 return name + ": " + formatComma(d.value);
                             })
                     }
