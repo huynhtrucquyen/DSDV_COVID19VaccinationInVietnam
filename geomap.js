@@ -95,7 +95,7 @@ function vis(ageRange) {
         tbody = table.append('tbody');
 
     //Load in data
-    d3.csv('https://raw.githubusercontent.com/huynhtrucquyen/DSDV_COVID19VaccinationInVietnam/main/geomap_data.csv', function(data) {
+    d3.csv('geomap_data.csv', function(data) {
 
         // colorScale.domain([
         //     d3.min(data, function(d) {
@@ -271,7 +271,7 @@ function vis(ageRange) {
                 .range(['0%', '100%']);
             // Creates the bar
             trows.select('div.bar2')
-                .style('width', '0%')
+                .style('width', '50%')
                 .transition().duration(500)
                 .style('width', function(d) {
                     return d[ratio2] > 0 ? x(d[ratio2]) : '0%';
@@ -294,7 +294,7 @@ function vis(ageRange) {
                 .range(['0%', '100%']);
             // Creates the bar
             trows.select('div.bar3')
-                .style('width', '0%')
+                .style('width', '50%')
                 .transition().duration(500)
                 .style('width', function(d) {
                     return d[ratio3] > 0 ? x(d[ratio3]) : '0%';
