@@ -26,7 +26,7 @@ function visBar() {
             dose3: parseInt(d['dose3'])
         }
     }
-    d3.csv('barchart_data.csv', rowConverter, function(error, data) {
+    d3.csv('https://raw.githubusercontent.com/huynhtrucquyen/DSDV_COVID19VaccinationInVietnam/main/barchart_data.csv', rowConverter, function(error, data) {
         if (error) {
             console.log(error);
         } else {
@@ -38,14 +38,14 @@ function visBar() {
                 var sum = data[i].dose1 + data[i].dose2 + data[i].dose3;
                 total.push(sum);
             }
-            console.log(total);
+            //console.log(total);
 
             //Keys of 'ages'
             var key = [];
             for (var i = 0; i < data.length; i++) {
                 key.push(data[i].age);
             }
-            console.log(key);
+            //console.log(key);
 
             // button
             var allGroup = d3.map(data, function(d) {
@@ -64,22 +64,12 @@ function visBar() {
                 .attr('value', function(d) {
                     return d;
                 }) // corresponding value returned by the button
+            
 
-            // X Scale
+            //X-Axis
             var xScale = d3.scaleLinear()
                 .domain([0, d3.max(total)])
                 .range([0, width]);
-
-            // Y Scale
-            var yScale = d3.scaleBand()
-                .range([height, 0])
-                .paddingInner(0.2)
-                .domain(key);
-
-            var colorScale = d3.scaleOrdinal()
-                .range(['rgb(83, 198, 140)', 'rgb(0, 153, 153)', 'rgb(102, 153, 153)']);
-
-            //X-Axis
             var xAxis = svg2.append('g')
                 .attr('class', 'xaxis')
                 .attr('transform', 'translate(0,' + height + ')')
@@ -98,8 +88,12 @@ function visBar() {
                 .attr('font-size', '20px')
                 .style("font-weight", "bold")
                 .text('Number of people');
-
+            
             //Y-Axis
+            var yScale = d3.scaleBand()
+                .range([height, 0])
+                .paddingInner(0.2)
+                .domain(key);
             var yAxis = svg2.append('g')
                 .attr('class', 'yaxis')
                 .call(d3.axisLeft(yScale))
@@ -118,6 +112,10 @@ function visBar() {
                 .attr('font-size', '20px')
                 .text('Age');
 
+            //Set color
+            var colorScale = d3.scaleOrdinal()
+                .range(['rgb(83, 198, 140)', 'rgb(0, 153, 153)', 'rgb(102, 153, 153)']);
+            
             //Tooltip
             var tooltip2 = d3.select('body').append('div')
                 .attr('class', 'tooltip2')
