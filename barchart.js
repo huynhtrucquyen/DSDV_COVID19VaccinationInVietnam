@@ -1,6 +1,6 @@
 function visBar() {
-    var margin = { top: 150, bottom: 130, left: 170, right: 270 },
-        width = 1370 - margin.left - margin.right,
+    var margin = { top: 150, bottom: 130, left: 190, right: 230 },
+        width = 1380 - margin.left - margin.right,
         height = 570 - margin.top - margin.bottom;
 
     var svg2 = d3.select('#barchart')
@@ -64,7 +64,7 @@ function visBar() {
                 .attr('value', function(d) {
                     return d;
                 }) // corresponding value returned by the button
-            
+
 
             //X-Axis
             var xScale = d3.scaleLinear()
@@ -88,7 +88,7 @@ function visBar() {
                 .attr('font-size', '20px')
                 .style("font-weight", "bold")
                 .text('Number of people');
-            
+
             //Y-Axis
             var yScale = d3.scaleBand()
                 .range([height, 0])
@@ -103,7 +103,7 @@ function visBar() {
                 .attr('transform');
             svg2.append('text')
                 .attr('transform', 'rotate(-90)')
-                .attr('y', -150)
+                .attr('y', -185)
                 .attr('x', 0 - (height / 2))
                 .attr('dy', '1.5em')
                 .style('text-anchor', 'middle')
@@ -115,7 +115,7 @@ function visBar() {
             //Set color
             var colorScale = d3.scaleOrdinal()
                 .range(['rgb(83, 198, 140)', 'rgb(0, 153, 153)', 'rgb(102, 153, 153)']);
-            
+
             //Tooltip
             var tooltip2 = d3.select('body').append('div')
                 .attr('class', 'tooltip2')
