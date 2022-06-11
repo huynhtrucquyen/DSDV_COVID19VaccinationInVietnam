@@ -29,7 +29,7 @@ var arc = d3.arc()
     .innerRadius(innerRadius)
     .outerRadius(outerRadius);
 
-// for animation
+// For animation
 var arcFinal = d3.arc()
     .innerRadius(innerRadius)
     .outerRadius(outerRadiusFinal);
@@ -205,7 +205,7 @@ var legendRectSize = 18;
 var legendSpacing = 4;
 
 // console.log(donut2_path);
-//console.log("AAAAAA");
+
 
 function donut2(rowValue) {
     var colorScale = d3.scaleOrdinal(['rgb(0, 102, 153)', 'rgb(102, 153, 153)', 'rgb(0, 102, 102)', 'rgb(51, 153, 102)']);
@@ -233,7 +233,7 @@ function donut2(rowValue) {
         }
     }
 
-    d3.csv('donut_data.csv', rowConverter, function(error, _data) {
+    d3.csv('https://raw.githubusercontent.com/huynhtrucquyen/DSDV_COVID19VaccinationInVietnam/main/donut_data.csv', rowConverter, function(error, _data) {
 
         var data2;
 
