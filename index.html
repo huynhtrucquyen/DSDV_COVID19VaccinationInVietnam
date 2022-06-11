@@ -1,0 +1,76 @@
+<html>
+<meta charset='utf-8'>
+
+<head>
+    <meta http-equiv='X-UA-Compatible' content='IE=Edge'>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js'></script>
+
+    <script type='text/javascript' src='https://d3js.org/d3.v4.min.js'></script>
+    <script type='text/javascript' src='https://d3js.org/d3.v4.js'></script>
+    <script src="./web_modules/d3/dist/d3.js"></script>
+    <script src="./web_modules//d3//dist//d3.js"></script>
+
+    <script data-require="d3@*" data-semver="4.0.0" src="https://d3js.org/d3.v4.min.js"></script>
+    <link rel='stylesheet' type='text/css' href='style.css' />
+</head>
+
+<style>
+    body {
+        background-color: rgb(233, 248, 255);
+    }
+</style>
+
+<body>
+    <p style='text-align: center; margin:30px;'><img src='vaccine.png' style='width : 600px; height : 200px;'></p>
+
+    <h1 id='s1'>
+        <center>Vaccination Data</center>
+    </h1>
+
+    <div id='s2' class="item-count-vac item-count-vac-v2 item-total">
+        <div id='s2a' class="label-text">People vaccinated</div>
+        <div id='s2b' class="label-percent">84,653,885</div>
+        <div id='s2c' class="label-count">86.23% of population</div>
+    </div>
+    <div id='s3' class="item-count-vac item-count-vac-v2 item-total">
+        <div id='s3a' class="label-text">Completed Vaccinations</div>
+        <div id='s3b' class="label-percent">79,461,215</div>
+        <div id='s3c' class="label-count">80.94% of population</div>
+    </div>
+
+    <div id='page'></div>
+
+    <div id='linechart'></div>
+
+    <button id='button1' onclick="vis('population_18andover')">Population of age 18 and over</button>
+    <button id='button2' onclick="vis('population_12to17')">Population age 12 to 17</button>
+    <button id='button3' onclick="vis('population_5to11')">Population of age 5 to 11</button>
+
+    <select id='selectButton'> </select>
+    <div id='geomap'></div>
+    <div id='table'></div>
+
+    <div id='donutchart'></div>
+
+    <div id='barchart'></div>
+
+    <div id='donut2'></div>
+
+
+    <script type='text/javascript' src='linechart.js'></script>
+    <script src='./geomap.js'></script>
+    <script type='text/javascript' src='barchart.js'></script>
+    <script type='text/javascript' src='donutchart.js'></script>
+
+
+    <script>
+        visLine();
+        vis("population_18andover");
+        visBar();
+        visDonut();
+    </script>
+
+    <p style='text-align: center; margin:-250px;'><img src='pic.gif' style='width : 320px; height : 300px;'></p>
+</body>
+
+</html>
