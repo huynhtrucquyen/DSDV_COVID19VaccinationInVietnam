@@ -92,7 +92,7 @@ function visBar() {
             //Y-Axis
             var yScale = d3.scaleBand()
                 .range([height, 0])
-                .paddingInner(0.2)
+                .paddingInner(0.3)
                 .domain(key);
             var yAxis = svg2.append('g')
                 .attr('class', 'yaxis')
